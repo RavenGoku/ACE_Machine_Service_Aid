@@ -15,10 +15,10 @@ namespace AceApp.Model
         [Indexed]
         public int MachineId { get; set; }
 
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         public bool IsTaskComplete { get; set; }
 
-        public string FileLocation { get; set; }
+        public string? FileLocation { get; set; }
     }
 }

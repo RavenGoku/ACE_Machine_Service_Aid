@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using AceApp.ViewModel.Helpers;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace AceApp.Model
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public string? UserName { get; set; }
+        public string? Password { get; set; }
     }
 }

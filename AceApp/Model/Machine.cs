@@ -12,7 +12,7 @@ namespace AceApp.Model
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        public string MachineName { get; set; }
-        public string Password { get; set; }
+        public string? MachineName { get; set; }
+        public string? Password { get; set; }
     }
 }

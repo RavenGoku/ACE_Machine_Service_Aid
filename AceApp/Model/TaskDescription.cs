@@ -16,7 +16,7 @@ namespace AceApp.Model
         [Indexed]
         public int TaskId { get; set; }
 
-        public Image TaskImage { get; set; }
-        public string Description { get; set; }
+        public Image? TaskImage { get; set; }
+        public string? Description { get; set; }
     }
 }
