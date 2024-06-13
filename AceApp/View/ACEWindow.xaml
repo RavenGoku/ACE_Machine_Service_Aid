@@ -4,8 +4,82 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AceApp.View"
+        xmlns:viewModel="clr-namespace:AceApp.ViewModel"
         mc:Ignorable="d"
-        Title="ACEWindow" Height="650" Width="1000">
-    <Grid>
-    </Grid>
+
+        Title="ACEWindow" MinHeight="650" MinWidth="1000">
+    <Window.DataContext>
+        <viewModel:ACEViewModel />
+    </Window.DataContext>
+    <DockPanel Background="Orange">
+        <Menu DockPanel.Dock="Top" Height="auto" Visibility="Visible">
+            <MenuItem  Header="_File">
+
+                <MenuItem Header="New Machine"
+                          Command="{Binding NewMachineCommand}" />
+                <MenuItem Header="New Task Box"
+                          Command="{Binding NewTaskBoxCommand}"
+                          CommandParameter="{Binding SelectedMachine}" />
+                <Separator />
+                <MenuItem Header="Exit"
+                            Command="{Binding CloseCommand}" />
+            </MenuItem>
+            <MenuItem Header="About" />
+        </Menu>
+        <!--Main Grid for Logo and names-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="8*" />
+            </Grid.RowDefinitions>
+            <Image Margin="30,0,30,3" Grid.Row="0" Height="auto" Source="/scr/ddsn.jpeg" />
+            <Image Margin="5" Grid.Row="0" Grid.Column="1" Height="auto" Source="/scr/ddsl.jpeg" />
+
+            <Label Content="ACE Machines" HorizontalAlignment="Center"
+                   FontSize="25"
+                   BorderBrush="Black"
+                   FontWeight="Bold" Grid.Row="1" />
+
+            <ListView Grid.Row="1"
+                      Margin="0,40,0,0"
+                      Background="Transparent"
+                      SelectionMode="Single"
+                      SelectedItem="{Binding SelectedMachine, Mode=TwoWay}"
+                      ItemsSource="{Binding Machines }">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding MachineName}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Inner Grid -->
+            <Grid x:Name="InsideGrid"
+                  Background="White"
+                  Grid.Row="1"
+                  Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
+                Height="auto"
+                VerticalAlignment="Top">
+
+                    <Button Content=" Add Task "
+                            FontWeight="Bold"
+                            Background="GreenYellow"
+                            Margin="5" />
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <ListView ItemsSource="{Binding TaskBoxs}">
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </DockPanel>
 </Window>

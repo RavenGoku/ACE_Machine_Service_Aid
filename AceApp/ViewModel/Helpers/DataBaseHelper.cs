@@ -12,8 +12,31 @@ namespace AceApp.ViewModel.Helpers
 {
     public static class DataBaseHelper
     {
+        public static string GetDatabasePath(string folderName, string databaseName)
+        {
+            // Get the path to the special folder for local application data
+            string appDataFolderPath = AppDomain.CurrentDomain.BaseDirectory;
+
+            // Combine the special folder path with the folder name to create the full path to your specific folder
+            string specificFolderPath = Path.Combine(appDataFolderPath, folderName);
+
+            // Create the folder if it doesn't exist
+            if (!Directory.Exists(specificFolderPath))
+            {
+                Directory.CreateDirectory(specificFolderPath);
+            }
+
+            // Combine the specific folder path with the database name to create the full database path
+            string databasePath = Path.Combine(specificFolderPath, databaseName);
+
+            return databasePath;
+        }
+
+        private static string folderName = "src\\data";
+        private static string databaseName = "ACEDataBase.db3";
+
         //create database file path that will be stored in app
-        private static string dataBaseFile = Path.Combine(Environment.CurrentDirectory, @"src/data/", "ACEDataBase.db3");
+        private static string dataBaseFile = GetDatabasePath(folderName, databaseName);
 
         //TODO: also create backup database file if user would like to be sure that if someone will delete the file, still file can be recovered
 

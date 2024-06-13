@@ -1,9 +1,5 @@
-﻿using AceApp.Model;
-using AceApp.ViewModel;
-using AceApp.ViewModel.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,13 +15,11 @@ using System.Windows.Shapes;
 namespace AceApp.View
 {
     /// <summary>
-    /// Interaction logic for ACEWindow.xaml
+    /// Interaction logic for TaskDescWindow.xaml
     /// </summary>
-    public partial class ACEWindow : Window
+    public partial class TaskDescWindow : Window
     {
-        public User User { get; set; }
-
-        public ACEWindow()
+        public TaskDescWindow()
         {
             InitializeComponent();
         }

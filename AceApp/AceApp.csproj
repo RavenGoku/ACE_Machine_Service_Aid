@@ -9,11 +9,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="src\**" />
+    <EmbeddedResource Remove="src\**" />
+    <None Remove="src\**" />
+    <Page Remove="src\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="View\4Star.jpg" />
+    <None Remove="View\ddsl.jpeg" />
+    <None Remove="View\ddsn.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="src\data\" />
+    <Resource Include="scr\ddsl.jpeg" />
+    <Resource Include="scr\ddsn.jpeg" />
   </ItemGroup>
 
 </Project>
