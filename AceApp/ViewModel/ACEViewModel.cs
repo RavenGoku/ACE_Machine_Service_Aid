@@ -17,6 +17,7 @@ namespace AceApp.ViewModel
         {
             NewMachineCommand = new NewMachineCommand(this);
             NewTaskBoxCommand = new NewTaskBoxCommand(this);
+            NewTaskCommand = new NewTaskCommand(this);
             CloseCommand = new CloseCommand(this);
             Machines = new ObservableCollection<Machine>();
             Tasks = new ObservableCollection<MachineTask>();
@@ -49,6 +50,18 @@ namespace AceApp.ViewModel
             }
         }
 
+        private MachineTask _selectedTaskBox;
+
+        public MachineTask SelectedTaskBox
+        {
+            get { return _selectedTaskBox; }
+            set
+            {
+                _selectedTaskBox = value;
+                OnPropertyChanged(nameof(SelectedTaskBox));
+            }
+        }
+
         //---------------------------------------------------------------------------
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -61,9 +74,10 @@ namespace AceApp.ViewModel
 
         //===========================================================================
         //COMMANDS
-        public NewMachineCommand NewMachineCommand { get; set; }
 
+        public NewMachineCommand NewMachineCommand { get; set; }
         public NewTaskBoxCommand NewTaskBoxCommand { get; set; }
+        public NewTaskCommand NewTaskCommand { get; set; }
         public CloseCommand CloseCommand { get; set; }
 
         //===========================================================================
@@ -90,8 +104,21 @@ namespace AceApp.ViewModel
                 BoxTitle = "New Task Box"
             };
 
-            DataBaseHelper.Insert(taskBox.BoxTitle.ToString());
+            DataBaseHelper.Insert(taskBox);
             GetTaskBox();
+        }
+
+        //---------------------------------------------------------------------------
+        // Create Task for specific machine
+        public void CreateTask(int taskBoxId)
+        {
+            MachineTask task = new MachineTask()
+            {
+                TaskBoxId = taskBoxId,
+                Title = "New Task"
+            };
+            DataBaseHelper.Insert(task);
+            GetTasks();
         }
 
         //---------------------------------------------------------------------------
@@ -118,6 +145,18 @@ namespace AceApp.ViewModel
                 {
                     TaskBoxs.Add(box);
                 }
+            }
+        }
+
+        //---------------------------------------------------------------------------
+        //Get Tasks
+        private void GetTasks()
+        {
+            var tasks = DataBaseHelper.Read<MachineTask>().Where(n => n.TaskBoxId == SelectedTaskBox.Id).ToList();
+            Tasks.Clear();
+            foreach (var task in tasks)
+            {
+                Tasks.Add(task);
             }
         }
     }

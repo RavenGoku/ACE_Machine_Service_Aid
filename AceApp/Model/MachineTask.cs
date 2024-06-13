@@ -13,7 +13,7 @@ namespace AceApp.Model
         public int Id { get; set; }
 
         [Indexed]
-        public int MachineId { get; set; }
+        public int TaskBoxId { get; set; }
 
         public string? Title { get; set; }
 

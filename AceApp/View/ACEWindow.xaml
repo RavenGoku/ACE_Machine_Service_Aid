@@ -6,15 +6,14 @@
         xmlns:local="clr-namespace:AceApp.View"
         xmlns:viewModel="clr-namespace:AceApp.ViewModel"
         mc:Ignorable="d"
-
         Title="ACEWindow" MinHeight="650" MinWidth="1000">
+
     <Window.DataContext>
         <viewModel:ACEViewModel />
     </Window.DataContext>
     <DockPanel Background="Orange">
         <Menu DockPanel.Dock="Top" Height="auto" Visibility="Visible">
             <MenuItem  Header="_File">
-
                 <MenuItem Header="New Machine"
                           Command="{Binding NewMachineCommand}" />
                 <MenuItem Header="New Task Box"
@@ -72,12 +71,38 @@
 
                     <Button Content=" Add Task "
                             FontWeight="Bold"
+                            Command="{Binding NewTaskCommand}"
+                            CommandParameter="{Binding SelectedTaskBox}"
                             Background="GreenYellow"
                             Margin="5" />
                 </StackPanel>
-                <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <ListView ItemsSource="{Binding TaskBoxs}">
-                    </ListView>
+                <!-- StackPanel view for TaskBox Header creating next to each other -->
+                <StackPanel Orientation="Vertical" Grid.Row="1">
+                    <!-- ItemsControl bound to TaskBoxs collection -->
+                    <ItemsControl ItemsSource="{Binding TaskBoxs}">
+                        <!-- Define the ItemsPanel to arrange items horizontally -->
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <!-- Define the template for each item in the ItemsControl -->
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="viewModel:ACEViewModel">
+                                <!-- ListView to display the items in the DataTemplate -->
+                                <ListView BorderThickness="0">
+                                    <!-- GroupBox to group and display items with a header -->
+                                    <GroupBox Header="{Binding BoxTitle}" Margin="10">
+                                        <!-- Inner ListView to display items within each GroupBox -->
+                                        <ListView>
+                                            <!-- Placeholder TextBlock (presumably to be filled later) -->
+                                            <TextBlock Text="" />
+                                        </ListView>
+                                    </GroupBox>
+                                </ListView>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
             </Grid>
         </Grid>
